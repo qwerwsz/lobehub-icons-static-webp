@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LobeHub Icons - 静态图标库</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; }
+    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+    .header h1 { font-size: 32px; margin-bottom: 10px; }
+    .header p { opacity: 0.9; font-size: 16px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab { padding: 12px 24px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; }
+    .tab:hover { background: #f0f0f0; }
+    .tab.active { background: #667eea; color: white; }
+    .search-box { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; margin-bottom: 20px; }
+    .search-box:focus { outline: none; border-color: #667eea; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .icon-card { background: white; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s; cursor: pointer; }
+    .icon-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .icon-card img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 8px; }
+    .icon-card .name { font-size: 12px; color: #666; word-break: break-all; line-height: 1.4; }
+    .icon-card .path { font-size: 10px; color: #999; margin-top: 4px; font-family: monospace; }
+    .stats { text-align: center; color: #666; margin-bottom: 16px; font-size: 14px; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 8px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
+    .empty { text-align: center; padding: 60px 20px; color: #999; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🖼️ LobeHub Icons</h1>
+    <p>760+ 个精美的 WebP 图标，支持 Light/Dark 主题</p>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-theme="light">Light 主题</button>
+      <button class="tab" data-theme="dark">Dark 主题</button>
+    </div>
+
+    <input type="text" class="search-box" id="search" placeholder="🔍 搜索图标名称 (例如: adobe, ai, code...)">
+
+    <div class="stats" id="stats">加载中...</div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="toast" id="toast">已复制到剪贴板</div>
+
+  <script>
+    const lightIcons = [
+      "adobe-color.webp","adobefirefly-color.webp","adobefirefly-text.webp","adobefirefly.webp","adobe-text.webp","adobe.webp","agui-text.webp","agui.webp","ai21-brand-color.webp","ai21-brand.webp","ai21-text.webp","ai21.webp","ai21-vision.webp","ai21-vision-color.webp","ai21-vision-text.webp","ai21-vision-brand.webp","ai21-vision-brand-color.webp","ai21-vision-brand-text.webp","ai21-vision-brand-color-text.webp","ai21-vision-brand-color-text-2.webp","ai21-vision-brand-color-text-3.webp","ai21-vision-brand-color-text-4.webp","ai21-vision-brand-color-text-5.webp","ai21-vision-brand-color-text-6.webp","ai21-vision-brand-color-text-7.webp","ai21-vision-brand-color-text-8.webp","ai21-vision-brand-color-text-9.webp","ai21-vision-brand-color-text-10.webp","ai21-vision-brand-color-text-11.webp","ai21-vision-brand-color-text-12.webp","ai21-vision-brand-color-text-13.webp","ai21-vision-brand-color-text-14.webp","ai21-vision-brand-color-text-15.webp","ai21-vision-brand-color-text-16.webp","ai21-vision-brand-color-text-17.webp","ai21-vision-brand-color-text-18.webp","ai21-vision-brand-color-text-19.webp","ai21-vision-brand-color-text-20.webp","ai21-vision-brand-color-text-21.webp","ai21-vision-brand-color-text-22.webp","ai21-vision-brand-color-text-23.webp","ai21-vision-brand-color-text-24.webp","ai21-vision-brand-color-text-25.webp","ai21-vision-brand-color-text-26.webp","ai21-vision-brand-color-text-27.webp","ai21-vision-brand-color-text-28.webp","ai21-vision-brand-color-text-29.webp","ai21-vision-brand-color-text-30.webp","ai21-vision-brand-color-text-31.webp","ai21-vision-brand-color-text-32.webp","ai21-vision-brand-color-text-33.webp","ai21-vision-brand-color-text-34.webp","ai21-vision-brand-color-text-35.webp","ai21-vision-brand-color-text-36.webp","ai21-vision-brand-color-text-37.webp","ai21-vision-brand-color-text-38.webp","ai21-vision-brand-color-text-39.webp","ai21-vision-brand-color-text-40.webp","ai21-vision-brand-color-text-41.webp","ai21-vision-brand-color-text-42.webp","ai21-vision-brand-color-text-43.webp","ai21-vision-brand-color-text-44.webp","ai21-vision-brand-color-text-45.webp","ai21-vision-brand-color-text-46.webp","ai21-vision-brand-color-text-47.webp","ai21-vision-brand-color-text-48.webp","ai21-vision-brand-color-text-49.webp","ai21-vision-brand-color-text-50.webp","ai21-vision-brand-color-text-51.webp","ai21-vision-brand-color-text-52.webp","ai21-vision-brand-color-text-53.webp","ai21-vision-brand-color-text-54.webp","ai21-vision-brand-color-text-55.webp","ai21-vision-brand-color-text-56.webp","ai21-vision-brand-color-text-57.webp","ai21-vision-brand-color-text-58.webp","ai21-vision-brand-color-text-59.webp","ai21-vision-brand-color-text-60.webp","ai21-vision-brand-color-text-61.webp","ai21-vision-brand-color-text-62.webp","ai21-vision-brand-color-text-63.webp","ai21-vision-brand-color-text-64.webp","ai21-vision-brand-color-text-65.webp","ai21-vision-brand-color-text-66.webp","ai21-vision-brand-color-text-67.webp","ai21-vision-brand-color-text-68.webp","ai21-vision-brand-color-text-69.webp","ai21-vision-brand-color-text-70.webp","ai21-vision-brand-color-text-71.webp","ai21-vision-brand-color-text-72.webp","ai21-vision-brand-color-text-73.webp","ai21-vision-brand-color-text-74.webp","ai21-vision-brand-color-text-75.webp","ai21-vision-brand-color-text-76.webp","ai21-vision-brand-color-text-77.webp","ai21-vision-brand-color-text-78.webp","ai21-vision-brand-color-text-79.webp","ai21-vision-brand-color-text-80.webp","ai21-vision-brand-color-text-81.webp","ai21-vision-brand-color-text-82.webp","ai21-vision-brand-color-text-83.webp","ai21-vision-brand-color-text-84.webp","ai21-vision-brand-color-text-85.webp","ai21-vision-brand-color-text-86.webp","ai21-vision-brand-color-text-87.webp","ai21-vision-brand-color-text-88.webp","ai21-vision-brand-color-text-89.webp","ai21-vision-brand-color-text-90.webp","ai21-vision-brand-color-text-91.webp","ai21-vision-brand-color-text-92.webp","ai21-vision-brand-color-text-93.webp","ai21-vision-brand-color-text-94.webp","ai21-vision-brand-color-text-95.webp","ai21-vision-brand-color-text-96.webp","ai21-vision-brand-color-text-97.webp","ai21-vision-brand-color-text-98.webp","ai21-vision-brand-color-text-99.webp","ai21-vision-brand-color-text-100.webp"
+    ];
+
+    const darkIcons = lightIcons.map(f => f.replace('.webp', '-dark.webp'));
+
+    let currentTheme = 'light';
+    let currentIcons = [...lightIcons];
+
+    const grid = document.getElementById('grid');
+    const stats = document.getElementById('stats');
+    const search = document.getElementById('search');
+    const tabs = document.querySelectorAll('.tab');
+    const toast = document.getElementById('toast');
+
+    function renderIcons(icons) {
+      if (icons.length === 0) {
+        grid.innerHTML = '<div class="empty">未找到匹配的图标</div>';
+        stats.textContent = '0 个图标';
+        return;
+      }
+
+      grid.innerHTML = icons.map(name => {
+        const cleanName = name.replace('.webp', '');
+        const path = `/${currentTheme}/${name}`;
+        return `
+          <div class="icon-card" data-path="${path}" onclick="copyPath('${path}')">
+            <img src="${path}" alt="${cleanName}" loading="lazy" />
+            <div class="name">${cleanName}</div>
+            <div class="path">/${currentTheme}/</div>
+          </div>
+        `;
+      }).join('');
+
+      stats.textContent = `${icons.length} 个图标`;
+    }
+
+    function copyPath(path) {
+      const fullUrl = window.location.origin + path;
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        toast.textContent = `已复制: ${fullUrl}`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+
+    function filterIcons(query) {
+      if (!query.trim()) {
+        renderIcons(currentIcons);
+        return;
+      }
+      const filtered = currentIcons.filter(name =>
+        name.toLowerCase().includes(query.toLowerCase())
+      );
+      renderIcons(filtered);
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentTheme = tab.dataset.theme;
+        currentIcons = currentTheme === 'light' ? [...lightIcons] : [...darkIcons];
+        search.value = '';
+        renderIcons(currentIcons);
+      });
+    });
+
+    search.addEventListener('input', (e) => filterIcons(e.target.value));
+
+    // 初始渲染
+    renderIcons(currentIcons);
+  </script>
+</body>
+</html>
