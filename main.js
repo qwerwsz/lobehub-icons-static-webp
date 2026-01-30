@@ -1,4 +1,4 @@
-// 自动生成的图标列表 - 2026-01-30 14:29:58
+// 自动生成的图标列表 - 2026-01-30 14:31:51
 // 总图标数: 760
 
 let lightIcons = [
@@ -27,17 +27,23 @@ function renderIcons(icons) {
 
   grid.innerHTML = icons.map(name => {
     const cleanName = name.replace('.webp', '');
-    const path = ;
-    return ;
+    const path = `/${currentTheme}/${name}`;
+    return `
+      <div class="icon-card" data-path="${path}" onclick="copyPath('${path}')">
+        <img src="${path}" alt="${cleanName}" loading="lazy" />
+        <div class="name">${cleanName}</div>
+        <div class="path">/${currentTheme}/</div>
+      </div>
+    `;
   }).join('');
 
-  stats.textContent = ;
+  stats.textContent = `${icons.length} 个图标`;
 }
 
 function copyPath(path) {
   const fullUrl = window.location.origin + path;
   navigator.clipboard.writeText(fullUrl).then(() => {
-    toast.textContent = ;
+    toast.textContent = `已复制: ${fullUrl}`;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
   });
